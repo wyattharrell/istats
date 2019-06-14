@@ -1,4 +1,4 @@
-# Stream Search
+# iStats - iMessage Statistics
 
 Objective: Create a search engine for various streaming services
 
