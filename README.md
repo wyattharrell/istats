@@ -1,8 +1,9 @@
 # iStats - iMessage Statistics
 
 Team Members: Bryce Brooks, Wyatt Harrell, Myra Mullis, John Rawley
-Project Name: iStat
+
 Objective: provide analytics on IMessages from IMessage app on MacBook. 
+
 Features:         
   · Read chat History from chat.db file and load into program
 	SQLite to pandas 
@@ -17,6 +18,7 @@ Features:
   · GUI
 	Matplotlib
 	Flask
+	
 Proposed Work Breakout:
 1.	GUI, graphics – Lead: Wyatt, Second: John  
 2.	Stats – Lead: Bryce, Second: Myra
@@ -24,11 +26,11 @@ Proposed Work Breakout:
 4.	File read in – Lead: John, Second: Wyatt  
 
 Work So Far:
-	Due to some API difficulties, we have decided to change our project. Currently we have a semi working functions to read from the chat.db, using sqlite3. We are also working on our Flask front end to display and navigate the various results. Lastly, we are looking into the pros and cons of using the SQL database directly vs creating a new database within the program.  
+Due to some API difficulties, we have decided to change our project. Currently we have a semi working functions to read from the chat.db, using sqlite3. We are also working on our Flask front end to display and navigate the various results. Lastly, we are looking into the pros and cons of using the SQL database directly vs creating a new database within the program. 
 
 Timeline:
   · End of June:
-	Have reading from chat.db complete and tested. 
+  	Have reading from chat.db complete and tested. 
 	Complete list of Analytics
 	Concrete Data storage
   · Mid July:
