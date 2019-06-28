@@ -38,6 +38,18 @@ Timeline:
 	GUI Functional 
   · End of July
 	Completed testing and debugging. 
+Myra
+-min and max characters 
+-average character count per message
+-min and max characters per conversation
+-who you text the most to the least
+-most common phrases
+
+Bryce
+-emojis
+-most common emojis
+-use old Data Structures assignment 
+-most common time of day to send texts
 
 
 Github slides: https://glfmn.github.io/gh-slides/#/1
