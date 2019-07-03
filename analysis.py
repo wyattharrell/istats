@@ -13,26 +13,22 @@ def find_count(s):                  # finds char count of each message passed in
 
 
 def max_char(df):                    # prints max character count
-    print("The max number of characters found in a text: " + str(max(df)) + " characters")
-    print()
+    return max(df)
 
 
 def min_char(df):                    # prints min character count
-    print("The min number of characters found in a text: " + str(min(df)) + " characters")
-    print()
+    return min(df)
 
 
 def avg(df):                         # prints average char count
     num = st.mean(df)
     num = format(num, '.2f')         # 2 decimal places
-    print("Average character count for messages sent by you: " + str(num) + " characters")
-    print()
+    return num
 
 
 def common_txt():                    # mode of the phone numbers
     phone = st.mode(gather.df['handle_id'])
-    print("You most commonly text: " + str(phone))
-    print()
+    return phone
 
 
 if __name__ == '__main__':
@@ -40,7 +36,8 @@ if __name__ == '__main__':
     count_df = count_df['text'].apply(find_count)       # new df of char counts
     print(count_df)
     print("Statistics on messages from you:")
-    max_char(count_df)
-    min_char(count_df)
-    avg(count_df)
-    common_txt()
+    print()
+    print("Max char count: " + str(max_char(count_df)) + " characters")
+    print("Min char count: " + str(min_char(count_df)) + " characters")
+    print("Avg. char count: " + str(avg(count_df)) + " characters")
+    print("You most commonly text: " + str(common_txt()))
