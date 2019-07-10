@@ -9,16 +9,20 @@ import pandas as pd
 path = "/Users/john/Desktop/chat.db"
 
 
-def populate_frame(file):
+def populate_frame(file): # IF handle is zero, it is sent from you
     conn = sqlite3.connect(file)
-    df = pd.read_sql_query("select * from message;", conn)
-    handle = pd.read_sql_query("select * from handle;", conn)
+    frame = pd.read_sql_query("select * from message;", conn)
+    handle = pd.read_sql_query("select ROWID, id from handle;", conn)
+    frame = clean_null(frame)
     row = 0
-    for message in df["handle_id"]:
-        df.iloc[row, df.columns.get_loc('handle_id')] = handle.iloc[message-1, handle.columns.get_loc('id')]
+    for message in frame["handle_id"]:
+        if message != 0:
+            temp = handle.loc[handle['ROWID'] == message]
+           #temp = handle['id'].where(handle['ROWID'] == message)
+            temp = temp.to_dict('list')
+            frame.iloc[row, frame.columns.get_loc('handle_id')] = temp['id'][0]
         row += 1
-    clean_null(df)
-    return df
+    return frame
 
 
 def clean_null(df):  # Removes Null text cells from DataFrame
@@ -57,6 +61,6 @@ if __name__ == '__main__':
     # print(df[['text', 'handle_id']])
     df = clean_null(df)
     # print(df[['text', 'handle_id']])
-    df = is_emote(df)
+    #df = is_emote(df)
     df = df[['text', 'handle_id']]
     print(df)
