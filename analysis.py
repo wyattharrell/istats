@@ -137,7 +137,19 @@ def get_letters_and_words(lst):
                 if len(top10_letters) > 10:
                     top10_letters.pop()
 
+                    
+def get_input():                     # users enters word or phrase they want to find
+    user_str = input("Enter a word or phrase you would like to find: ")
+    return user_str
 
+
+def find_msg(s):                     # return the message if the word or phrase found in message
+    if input_phrase in s:
+        return s
+    else:
+        return ' '
+                    
+                 
 if __name__ == '__main__':
     count_df = gather.df
     count_df = count_df['text'].apply(find_count)       # new df of char counts
@@ -158,4 +170,10 @@ if __name__ == '__main__':
     print("About to print words")
     for i in range(0, len(top10_words)):
         print(str(i) + ": " + str(top10_words[i]))
-
+        
+    input_phrase = get_input()
+    msg_df = gather.df
+    msg_df['text'] = msg_df['text'].apply(find_msg)                 # new df of messages containing user's input
+    print()
+    print("Messages with your specified word or phrase:")
+    print(msg_df.loc[msg_df['text'] != ' '])                        # prints only the found messages
