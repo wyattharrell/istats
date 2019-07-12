@@ -1,6 +1,7 @@
 # Uses gather.py, finds max, min, and average characters
 # Along with the mode of the phone numbers
 import statistics as st
+import emojis
 import gather
 
 
@@ -74,6 +75,8 @@ letters = {}                    # dictionary to store 'element' objects
 words = {}
 top10_letters = []              # only store 10 values at a time
 top10_words = []
+emojies = {}
+top10_emojies = []
 
 
 def count_words(w, itr):
@@ -133,6 +136,41 @@ def count_letters(chars, itr):
             top10_letters.pop()
 
 
+def get_emojis(s, itr):
+    emoji_list = s[:]
+    emoji_list = emojis.get(s)                  # set of emojies in this string
+    emoji_list = list(emoji_list)               # list of that set
+
+    if len(emoji_list) > 0:
+
+        for element in emoji_list:
+            if element in emojies:
+                emojies[element].increment()
+            else:
+                itr += 1
+                emojies[element] = Elements(element, 1, itr)
+
+            isin = False
+            for j in range(0, len(top10_emojies)):  # check all the top 10 so far to change the counter
+                if top10_emojies[j].value == element:
+                    top10_emojies[j].counter = emojies[element].counter
+                    isin = True
+
+            if len(top10_emojies) < 10 and isin is False:
+                top10_emojies.append(emojies[element])
+            elif emojies[element].counter >= top10_emojies[-1].counter and isin is False:
+                # if current 'w' is now greater then or equal to the lowest element add it to the list
+                top10_emojies.append(emojies[element])
+                top10_emojies.sort(reverse=True)  # sort the list to put it in its correct place
+                top10_emojies.pop()  # pop one element off to keep at 10 total elements
+                isin = True
+
+            top10_emojies.sort(reverse=True)
+
+            if len(top10_emojies) > 10:
+                top10_emojies.pop()
+
+
 def get_letters_and_words(lst):
     itr = 0  # iterator for the precedence value
     for i in range(0, 5):    # iterate through every line of the test file of nd-array
@@ -147,6 +185,8 @@ def get_letters_and_words(lst):
 
             chars = list(w)
             count_letters(chars, itr)
+
+            get_emojis(w, itr)
 
 
 def get_input():                     # users enters word or phrase they want to find
@@ -188,7 +228,11 @@ if __name__ == '__main__':
     for i in range(0, len(top10_letters)):
         print(str(i+1) + ": " + str(top10_letters[i]))
 
-    print("About to print words")
+    print("About to print 10 emojies")
+    for i in range(0, len(top10_emojies)):
+        print(str(i + 1) + ": " + str(top10_emojies[i]))
+
+    print("About to print 10 words")
     for i in range(0, len(top10_words)):
         print(str(i+1) + ": " + str(top10_words[i]))
 
