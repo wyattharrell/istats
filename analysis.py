@@ -69,10 +69,68 @@ def common_txt():                    # mode of the phone numbers
     return phone
 
 
+''' Containers for words, characters and their top 10s '''
 letters = {}                    # dictionary to store 'element' objects
 words = {}
 top10_letters = []              # only store 10 values at a time
 top10_words = []
+
+
+def count_words(w, itr):
+    if w in words:
+        words[w].increment()
+    else:
+        itr += 1
+        words[w] = Elements(w, 1, itr)
+
+    isin = False
+    for j in range(0, len(top10_words)):  # check all the top 10 so far to change the counter
+        if top10_words[j].value == w:
+            top10_words[j].counter = words[w].counter
+            isin = True
+
+    if len(top10_words) < 10 and isin is False:
+        top10_words.append(words[w])
+    elif words[w].counter >= top10_words[-1].counter and isin is False:
+        # if current 'w' is now greater then or equal to the lowest element add it to the list
+        top10_words.append(words[w])
+        top10_words.sort(reverse=True)  # sort the list to put it in its correct place
+        top10_words.pop()  # pop one element off to keep at 10 total elements
+        isin = True
+
+    top10_words.sort(reverse=True)
+
+    if len(top10_words) > 10:
+        top10_words.pop()
+
+
+def count_letters(chars, itr):
+    for c in chars:
+        if c in letters:  # here we add or increment the operator
+            letters[c].increment()
+        else:
+            itr += 1
+            letters[c] = Elements(c, 1, itr)
+
+        isin = False
+        for j in range(0, len(top10_letters)):  # cheak all the top 10 so far to change the counter
+            if top10_letters[j].value == c:
+                top10_letters[j].counter = letters[c].counter
+                isin = True
+
+        if len(top10_letters) < 10 and isin is False:
+            top10_letters.append(letters[c])
+        elif letters[c].counter >= top10_letters[-1].counter and isin is False:
+            # if current 'char' is now greater then or equal to the lowest element add it to the list
+            top10_letters.append(letters[c])
+            top10_letters.sort(reverse=True)  # sort the list to put it in its correct place
+            top10_letters.pop()  # pop one element off to keep at 10 total elements
+            isin = True
+
+        top10_letters.sort(reverse=True)
+
+        if len(top10_letters) > 10:
+            top10_letters.pop()
 
 
 def get_letters_and_words(lst):
@@ -83,61 +141,14 @@ def get_letters_and_words(lst):
 
         for w in messages:
             w = w.lower()
-            if w in words:
-                words[w].increment()
-            else:
-                itr += 1
-                words[w] = Elements(w, 1, itr)
-
-            isin = False
-            for j in range(0, len(top10_words)):          # check all the top 10 so far to change the counter
-                if top10_words[j].value == w:
-                    top10_words[j].counter = words[w].counter
-                    isin = True
-
-            if len(top10_words) < 10 and isin is False:
-                top10_words.append(words[w])
-            elif words[w].counter >= top10_words[-1].counter and isin is False:
-                # if current 'w' is now greater then or equal to the lowest element add it to the list
-                top10_words.append(words[w])
-                top10_words.sort(reverse=True)    # sort the list to put it in its correct place
-                top10_words.pop()                 # pop one element off to keep at 10 total elements
-                isin = True
-
-            top10_words.sort(reverse=True)
-
-            if len(top10_words) > 10:
-                top10_words.pop()
+            if not ((w[-1] >= 'A' and w[-1] <= 'Z') or (w[-1] >= 'a' and w[-1] <= 'z')):    # catch punctuation
+                w = w[:-1]
+            count_words(w, itr)
 
             chars = list(w)
-            for c in chars:
-                if c in letters:        # here we add or increment the operator
-                    letters[c].increment()
-                else:
-                    itr += 1
-                    letters[c] = Elements(c, 1, itr)
+            count_letters(chars, itr)
 
-                isin = False
-                for j in range(0, len(top10_letters)):          # cheak all the top 10 so far to change the counter
-                    if top10_letters[j].value == c:
-                        top10_letters[j].counter = letters[c].counter
-                        isin = True
 
-                if len(top10_letters) < 10 and isin is False:
-                    top10_letters.append(letters[c])
-                elif letters[c].counter >= top10_letters[-1].counter and isin is False:
-                    # if current 'char' is now greater then or equal to the lowest element add it to the list
-                    top10_letters.append(letters[c])
-                    top10_letters.sort(reverse=True)    # sort the list to put it in its correct place
-                    top10_letters.pop()                 # pop one element off to keep at 10 total elements
-                    isin = True
-
-                top10_letters.sort(reverse=True)
-
-                if len(top10_letters) > 10:
-                    top10_letters.pop()
-
-                    
 def get_input():                     # users enters word or phrase they want to find
     user_str = input("Enter a word or phrase you would like to find: ")
     return user_str
@@ -148,8 +159,18 @@ def find_msg(s):                     # return the message if the word or phrase 
         return s
     else:
         return ' '
-                    
-                 
+
+
+def get_word(s):                     # returns the number of times a word/char appears or a message that is it not used
+    s = s.lower()
+    if s in words:
+        return words[s].counter
+    elif s in letters:
+        return letters[s].counter
+    else:
+        return "Word no found"
+
+
 if __name__ == '__main__':
     count_df = gather.df
     count_df = count_df['text'].apply(find_count)       # new df of char counts
@@ -165,15 +186,21 @@ if __name__ == '__main__':
 
     print("About to print to 10 characters")
     for i in range(0, len(top10_letters)):
-        print(str(i) + ": " + str(top10_letters[i]))
+        print(str(i+1) + ": " + str(top10_letters[i]))
 
     print("About to print words")
     for i in range(0, len(top10_words)):
-        print(str(i) + ": " + str(top10_words[i]))
-        
+        print(str(i+1) + ": " + str(top10_words[i]))
+
+    print("Getting a specific word")
+    print(get_word(get_input()))
+    print("Printing dict of words")
+
+
     input_phrase = get_input()
     msg_df = gather.df
     msg_df['text'] = msg_df['text'].apply(find_msg)                 # new df of messages containing user's input
     print()
     print("Messages with your specified word or phrase:")
     print(msg_df.loc[msg_df['text'] != ' '])                        # prints only the found messages
+
