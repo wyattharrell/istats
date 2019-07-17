@@ -64,3 +64,4 @@ if __name__ == '__main__':
     #df = is_emote(df)
     df = df[['text', 'handle_id']]
     print(df)
+

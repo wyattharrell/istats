@@ -73,9 +73,9 @@ def common_txt():                    # mode of the phone numbers
 ''' Containers for words, characters and their top 10s '''
 letters = {}                    # dictionary to store 'element' objects
 words = {}
+emojies = {}
 top10_letters = []              # only store 10 values at a time
 top10_words = []
-emojies = {}
 top10_emojies = []
 
 
@@ -171,6 +171,15 @@ def get_emojis(s, itr):
                 top10_emojies.pop()
 
 
+def make_separate(lst):
+    strings = []
+    counts = []
+    for i in range(len(lst)):
+        strings.append(lst[i].value)
+        counts.append(lst[i].counter)
+
+    return strings, counts
+
 def get_letters_and_words(lst):
     itr = 0  # iterator for the precedence value
     for i in range(0, 5):    # iterate through every line of the test file of nd-array
@@ -244,6 +253,11 @@ if __name__ == '__main__':
     print("About to print 10 words")
     for i in range(0, len(top10_words)):
         print(str(i+1) + ": " + str(top10_words[i]))
+
+    p1, p2 = make_separate(top10_words)
+
+    print(p1)
+    print(p2)
 
     print("Getting a specific word")
     print(get_word(get_input()))
