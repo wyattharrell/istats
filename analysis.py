@@ -220,15 +220,6 @@ def get_word(s):                     # returns the number of times a word/char a
         return "Word no found"
 
     
-def comm_phrases():                  # specify certain phrases, find their count
-    phrases = ["hey", "what's up", "goodnight", "how are you", "love you", "here", "on my way"]
-    lst = []
-    for j in range(0, 7):
-        count = find_count(phrases[j])
-        lst.append(count)
-    return phrases, lst
-
-
 if __name__ == '__main__':
     count_df = gather.df
     count_df = count_df['text'].apply(find_count)       # new df of char counts
@@ -271,9 +262,3 @@ if __name__ == '__main__':
     print("Messages with your specified word or phrase:")
     print(msg_df.loc[msg_df['text'] != ' '])                        # prints only the found messages
     
-    print()
-    phrase, counts = comm_phrases()                                 # gets pre defined phrases and count of each
-    print("Printing the word count of the specified common phrases: ")
-    for i in range(0, 7):
-        print(str(phrase[i]) + ": " + str(counts[i]))
-
