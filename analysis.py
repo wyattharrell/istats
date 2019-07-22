@@ -171,6 +171,15 @@ def get_emojis(s, itr):
                 top10_emojies.pop()
 
 
+def get_entire_emoji_list():
+    retEmoji = []
+    retCounter = []
+    for i in emojies:
+        retEmoji.append(emojies[i].value)
+        retCounter.append(emojies[i].counter)
+    return retEmoji, retCounter
+
+
 def make_separate(lst):
     strings = []
     counts = []
@@ -221,6 +230,7 @@ def get_word(s):                     # returns the number of times a word/char a
 
     
 if __name__ == '__main__':
+
     count_df = gather.df
     count_df = count_df['text'].apply(find_count)       # new df of char counts
     print(count_df)
@@ -232,6 +242,10 @@ if __name__ == '__main__':
     print("You most commonly text: " + str(common_txt()))
 
     gather.df['text'].apply(get_letters_and_words)
+
+    val, coun = get_entire_emoji_list()
+    print(val)
+    print(coun)
 
     print("About to print to 10 characters")
     for i in range(0, len(top10_letters)):
@@ -261,4 +275,4 @@ if __name__ == '__main__':
     print()
     print("Messages with your specified word or phrase:")
     print(msg_df.loc[msg_df['text'] != ' '])                        # prints only the found messages
-    
+
