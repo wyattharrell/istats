@@ -83,12 +83,12 @@ def on_date(df, type, value):  # pass in dataframe, field: Returns all messages 
 
 def date_count(df):
     month = [0] * 12
-    day = [0] * 31
+    day = [0] * 7
     hour = [0] * 24
 
     for date in df['date']:
         month[date.tm_mon-1] += 1
-        day[date.tm_mday-1] += 1
+        day[date.tm_wday-1] += 1
         hour[date.tm_hour] += 1
     return hour, day, month
 
@@ -114,11 +114,11 @@ def is_groupchat(df, roomname=''):  # returns a specified group chat if roomname
         return df
 
 
-if __name__ == '__main__':
-    df = populate_frame(path)
-    df = clean_null(df)
+#if __name__ == '__main__':
+df = populate_frame(path)
+df = clean_null(df)
     #df = on_date(df, 'wday', 1)
     #df = df[['text', 'handle_id', 'date']]
     #print(df)
-    print(date_count(df))
+print(date_count(df))
 
