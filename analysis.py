@@ -208,16 +208,20 @@ def get_letters_and_words(lst):
             get_emojis(w, itr)
 
 
-def get_input():                     # users enters word or phrase they want to find
-    user_str = input("Enter a word or phrase you would like to find: ")
-    return user_str
-
-
-def find_msg(s):                     # return the message if the word or phrase found in message
+def find_msg(s, input_phrase):         # returns true if input_phrase found in s
     if input_phrase in s:
-        return s
+        return True
     else:
-        return ' '
+        return False
+
+
+def getMessageList(phrase):            # returns list of messages found with phrase
+    msg_df = gather.df
+    lst = []
+    for message in msg_df['text']:
+        if find_msg(message, phrase):
+            lst.append(message)
+    return lst
 
 
 def get_word(s):                     # returns the number of times a word/char appears or a message that is it not used
@@ -243,6 +247,8 @@ def get_days_of_week():
     for i in range(7):
         ret.append(date_df('wday', i))
     return ret
+
+
 
 
 if __name__ == '__main__':
@@ -286,14 +292,7 @@ if __name__ == '__main__':
     print(p1)
     print(p2)
 
-    print("Getting a specific word")
-    print(get_word(get_input()))
-    print("Printing dict of words")
-
-    input_phrase = get_input()
-    msg_df = gather.df
-    msg_df['text'] = msg_df['text'].apply(find_msg)                 # new df of messages containing user's input
     print()
-    print("Messages with your specified word or phrase:")
-    print(msg_df.loc[msg_df['text'] != ' '])                        # prints only the found messages
-
+    print("Printing messages with given phrase: ")
+    lst = getMessageList("Yikes")               # pass in user input string here
+    print(lst)                                  # prints the list
