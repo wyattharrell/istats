@@ -227,6 +227,13 @@ def get_word(s):                     # returns the number of times a word/char a
         return letters[s].counter
     else:
         return "Word no found"
+    
+    
+def date_df(day, value):
+    df = gather.populate_frame(gather.path)
+    df = gather.clean_null(df)
+    df = gather.on_date(df, day, value)
+    df = df[['text', 'handle_id', 'date']]
 
     
 if __name__ == '__main__':
