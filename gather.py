@@ -80,6 +80,7 @@ def on_date(df, type, value):  # pass in dataframe, field: Returns all messages 
         row += 1
     return df.query('is_corrupt == 1')
 
+
 def is_me(df):  # returns dateframe of text sent by you
     return df.query('is_from_me == 1')
 

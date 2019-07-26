@@ -189,6 +189,7 @@ def make_separate(lst):
 
     return strings, counts
 
+
 def get_letters_and_words(lst):
     itr = 0  # iterator for the precedence value
     for i in range(0, 5):    # iterate through every line of the test file of nd-array
@@ -234,10 +235,17 @@ def date_df(day, value):
     df = gather.clean_null(df)
     df = gather.on_date(df, day, value)
     df = df[['text', 'handle_id', 'date']]
+    return len(df)
 
-    
+
+def get_days_of_week():
+    ret = []
+    for i in range(7):
+        ret.append(date_df('wday', i))
+    return ret
+
+
 if __name__ == '__main__':
-
     count_df = gather.df
     count_df = count_df['text'].apply(find_count)       # new df of char counts
     print(count_df)
@@ -266,6 +274,13 @@ if __name__ == '__main__':
     for i in range(0, len(top10_words)):
         print(str(i+1) + ": " + str(top10_words[i]))
 
+    p = date_df('wday', 1)
+
+    print(p)
+    p = get_days_of_week()
+    print(p)
+
+
     p1, p2 = make_separate(top10_words)
 
     print(p1)
@@ -274,7 +289,6 @@ if __name__ == '__main__':
     print("Getting a specific word")
     print(get_word(get_input()))
     print("Printing dict of words")
-
 
     input_phrase = get_input()
     msg_df = gather.df
