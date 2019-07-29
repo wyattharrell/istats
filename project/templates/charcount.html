@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ title }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {margin:0;}
+.navbar {
+  overflow: hidden;
+  background-color: #2b98f0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+.main {
+  padding: 16px;
+  margin-top: 30px;
+  height: 1500px; /* Used in this example to enable scrolling */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 33%;
+  padding: 0 50px;
+}
+
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #2b98f0;
+  color: white;
+}
+
+.fa {font-size:50px;}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: gray;
+   color: white;
+   text-align: center;
+}
+
+</style>
+</head>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+
+  <!-- Navbar -->
+  <div class="navbar">
+  <a href="/home">Home</a>
+  <a href="/most-used">Most Used</a>
+  <a href="/character-count">Character Count</a>
+  <a href="/search-a-string">Search a String</a>
+  <a href="/most-texted">Most Texted Contact</a>
+  <a href="/activity-by-date">Activity By Date</a>
+  <a href="/about">About</a>
+  </div>
+
+<br>
+<br>
+<br>
+
+<center>
+<h1>Min, Max, Avg Character Count</h1>
+<br>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <p><i class="fa fa-bar-chart"></i></p>
+      <h3>{{minChar}}</h3>
+      <p>Minimum Character Count</p>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <p><i class="fa fa-bar-chart"></i></p>
+      <h3>{{maxChar}}</h3>
+      <p>Maximum Character Count</p>
+    </div>
+  </div>
+  
+  <div class="column">
+    <div class="card">
+      <p><i class="fa fa-bar-chart"></i></p>
+      <h3>{{avgChar}}</h3>
+      <p>Average Character Count</p>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+
+<br>
+<br>
+</center>
+
+
+<div class="footer">
+  <p>{{footer}}</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+  <style>
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+body {margin:0;}
+
+.navbar {
+  overflow: hidden;
+  background-color: #2b98f0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+.main {
+  padding: 16px;
+  margin-top: 30px;
+  height: 1500px; /* Used in this example to enable scrolling */
+}
+</style>
+</head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body>
+
+  <div class="navbar">
+  <a href="/home">Home</a>
+  <a href="/most-used">Most Used</a>
+  <a href="/character-count">Character Count</a>
+  <a href="/search-a-string">Search a String</a>
+  <a href="/most-texted">Most Texted Contact</a>
+  <a href="/activity-by-date">Activity By Date</a>
+  <a href="/about">About</a>
+  </div>
+
+<br>
+<br>
+<br>
+
+
+  <center>
+    <h1>Most Used Words</h1>
+  </center>
+  <center>
+    <canvas id="chart" width="600" height="400"></canvas>
+    <script>
+      // bar chart data
+      var barData = {
+        labels : [
+          {% for item in labels %}
+           "{{ item }}",
+          {% endfor %}
+	 ],
+        datasets : [{
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          data : [
+            {% for item in values %}
+               "{{ item }}",
+              {% endfor %}
+	    ]
+          }
+        ]
+      }
+     // get bar chart canvas
+     var mychart = document.getElementById("chart").getContext("2d");
+       steps = 10
+       max = {{max}}
+     // draw bar chart
+     new Chart(mychart).Bar(barData, {
+       scaleOverride: true,
+       scaleSteps: steps,
+       scaleStepWidth: Math.ceil(max / steps),
+       scaleStartValue: 0,
+       scaleShowVerticalLines: true,
+       scaleShowGridLines : true,
+       barShowStroke : true,
+       scaleShowLabels: true
+       }
+     );
+    </script>
+
+  </center>
+
+
+
+
+
+
+
+
+
+
+
+
+  <center>
+    <h1>Most Used Characters</h1>
+  </center>
+  <center>
+    <canvas id="chart2" width="600" height="400"></canvas>
+    <script>
+      // bar chart data
+      var barData = {
+        labels : [
+          {% for item in labels2 %}
+           "{{ item }}",
+          {% endfor %}
+   ],
+        datasets : [{
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          data : [
+            {% for item in values2 %}
+               "{{ item }}",
+              {% endfor %}
+      ]
+          }
+        ]
+      }
+     // get bar chart canvas
+     var mychart = document.getElementById("chart2").getContext("2d");
+       steps = 10
+       max = {{max2}}
+     // draw bar chart
+     new Chart(mychart).Bar(barData, {
+       scaleOverride: true,
+       scaleSteps: steps,
+       scaleStepWidth: Math.ceil(max / steps),
+       scaleStartValue: 0,
+       scaleShowVerticalLines: true,
+       scaleShowGridLines : true,
+       barShowStroke : true,
+       scaleShowLabels: true
+       }
+     );
+    </script>
+
+  </center>
+
+
+
+
+<center>
+<body>
+    <h1>Most Used Emoji</h1>
+
+    <canvas id="chart3" width="600" height="400"></canvas>
+    <script>
+      var pieData = [
+        {% for item, label, colors in set %}
+          {
+            value: {{item}},
+            label: "{{label}}",
+            color : "{{colors}}"
+          },
+        {% endfor %}
+      ];
+      // get bar chart canvas
+      var mychart = document.getElementById("chart3").getContext("2d");
+      steps = 10
+      max = {{ max3 }}
+      // draw pie chart
+      new Chart(document.getElementById("chart3").getContext("2d")).Pie(pieData);
+    </script>
+</body>
+
+</center>
+
+<br>
+<br>
+<footer>
+  <p>{{footer}}</p>
+</footer>
+
+</body>
+</html>
