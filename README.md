@@ -10,7 +10,7 @@ The front end was created using Flask, HTML, and JavaScript to output statistics
 
 Features:
 Top 10 words, characters, and emojis, displayed with graphs; maximum, minimum, and average character count; 
-most texted contact; find a phrase; 
+most texted contact; find a phrase; activity by date
 
 Division of Work:
 John - File read in, storing in pandas dataframe, and desired functions; 
