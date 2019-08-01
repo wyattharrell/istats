@@ -30,16 +30,7 @@ Python Libraries:
 - datetime
 - statistics 
 - emojis
--....
-
-
 
 Other resources:
 - Python documentation and documentation for each of the libraries used
--...
-
-
-
-
-
 
