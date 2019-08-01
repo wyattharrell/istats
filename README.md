@@ -20,11 +20,8 @@ Myra - Maximum, minimum, average character count, most texted contact, find a
 phrase; analysis.py
 Wyatt - GUI, graphics
 
-How to use:
-...
-
-
-
+How to run:
+python iStats.py
 
 Python Libraries:
 - pandas			
