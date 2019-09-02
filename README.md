@@ -14,6 +14,8 @@ iStats was created as a program to output statistics on sent iMessages. iStats w
 <li>Search a String</li>
 </ul>
 
+![Image of iStats](https://raw.githubusercontent.com/wyattharrell/iStats/master/project/static/graph.png)
+
 ### Installation:
 
 Make sure your <i>chat.db</i> file is located on your Desktop and you have the proper libraries installed. Change the path variable in <i>gather.py</i> (line 11) to your Users name.
