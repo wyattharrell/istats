@@ -38,4 +38,5 @@ python iStats.py
 
 ## Authors: 
 [Wyatt Harrell](https://www.wyattharrell.com), Bryce Brooks, Myra Mullis, John Rawley
+
 Florida State University - CIS 4930: Python Programming (Summer 2019)
